@@ -6,7 +6,6 @@ import com.AndroidExamApp.data.Product;
 import android.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -51,7 +50,7 @@ public class Fragment2 extends Fragment {
 		
 		Button b1 = (Button) rootView.findViewById(R.id.buttonReload);
 		b1.setOnClickListener(myhandler1);
-			
+		
 		return rootView;
 	}
 		
@@ -60,9 +59,10 @@ public class Fragment2 extends Fragment {
 	    	adapter = loadData();
 	    	adapter.notifyDataSetChanged();
 	    	lv.setAdapter(adapter);
-	    	Log.i("data", "data changed, should be updated!");
 	    }
 	 };
+	 
+	
 	
 	public ArrayAdapter<String> loadData(){
 		MyDBHandler dbHandler = new MyDBHandler(context, null, null, 1);

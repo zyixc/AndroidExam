@@ -98,7 +98,7 @@ public class MainActivity extends Activity implements ActionBar.TabListener {
 	        	Intent i = new Intent(Intent.ACTION_VIEW);
 	        	i.setData(Uri.parse(url));
 	        	startActivity(i);
-	        	return true;
+	        	return true;	        	
 	        default: return super.onOptionsItemSelected(item);
 	    }
 	}
@@ -134,7 +134,6 @@ public class MainActivity extends Activity implements ActionBar.TabListener {
 		@Override
 		public Fragment getItem(int position) {
 			// getItem is called to instantiate the fragment for the given page.
-			// Return a PlaceholderFragment
 			switch (position) {
 			case 0:
 				return Fragment1.newInstance();
