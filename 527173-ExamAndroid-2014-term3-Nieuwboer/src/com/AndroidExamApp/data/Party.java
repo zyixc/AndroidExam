@@ -20,6 +20,12 @@ public class Party {
 		this._promises = _promises;
 	}
 	
+	public Party(String _name, String _description){
+		this._name = _name;
+		this._description = _description;
+		this._filename = "politiek.png";
+	}
+	
 	public Party(){
 		this._name = "Default";
 		this._description = "Default";

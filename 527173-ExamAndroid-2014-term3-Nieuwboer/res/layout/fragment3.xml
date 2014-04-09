@@ -82,17 +82,30 @@
              <EditText
                  android:id="@+id/editPromiseDescription"
                  android:layout_width="wrap_content"
-                 android:layout_height="wrap_content"
+                 android:layout_height="match_parent"
                  android:ems="10"
                  android:inputType="textMultiLine"
                  android:maxLines="3"
                  android:minLines="3" />
 
-             <Button
-                 android:id="@+id/button3Save"
+             <LinearLayout
                  android:layout_width="wrap_content"
                  android:layout_height="wrap_content"
-                 android:text="@string/button_save" />
+                 android:orientation="vertical" >
+
+                 <Button
+                     android:id="@+id/button3Add"
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+                     android:text="@string/buttonAdd" />
+
+                 <Button
+                     android:id="@+id/button3Save"
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+                     android:text="@string/button_save" />
+
+             </LinearLayout>
 
         </TableRow>
     </TableLayout>

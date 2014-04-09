@@ -34,6 +34,7 @@ public class Fragment2 extends Fragment {
 	static ListView listView;
 	static Party currentparty;
 	Button buttonSave;
+	Button buttonAdd;
 	
 	static Context context;
 	
@@ -56,10 +57,22 @@ public class Fragment2 extends Fragment {
 		editPartyDescription = (EditText) rootView.findViewById(R.id.editPartyDescription);
 		listView = (ListView) rootView.findViewById(R.id.listView2);
 		buttonSave = (Button) rootView.findViewById(R.id.button2Save);
+		buttonAdd = (Button) rootView.findViewById(R.id.button2Add);
 		
 		plusSign.setText("+0");
 		equalsSign.setText("=0");
 		minusSign.setText("-0");
+		
+		buttonAdd.setOnClickListener(new OnClickListener(){
+			@Override
+			public void onClick(View v) {
+				Party tempparty = new Party(editName.getText().toString(),editPartyDescription.getText().toString());
+				MyDBHandler db = new MyDBHandler(context, null, null, 1);
+				db.addParty(tempparty);	
+				db.close();
+				Fragment3.setCurrentPromises(tempparty.get_name(),"");
+			}
+		});
 		
 		buttonSave.setOnClickListener(new OnClickListener(){
 			@Override
@@ -68,7 +81,8 @@ public class Fragment2 extends Fragment {
 				currentparty.set_description(editPartyDescription.getText().toString());
 				
 				MyDBHandler db = new MyDBHandler(context, null, null, 1);
-				db.alterParty(currentparty);			
+				db.alterParty(currentparty);
+				db.close();
 			}
 		});
 		
@@ -80,7 +94,7 @@ public class Fragment2 extends Fragment {
 		      {
 		            String value = (String)adapter.getItemAtPosition(position); 
 		            Toast.makeText(context, value, Toast.LENGTH_SHORT).show();
-		            Fragment3.setCurrentParty(currentparty.get_name());
+		            Fragment3.setCurrentPromises(currentparty.get_name(),value);
 		      }
 		});
 		

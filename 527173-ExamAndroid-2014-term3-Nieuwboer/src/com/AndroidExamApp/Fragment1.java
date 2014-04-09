@@ -54,10 +54,10 @@ public class Fragment1 extends Fragment {
 		            String value = (String)adapter.getItemAtPosition(position); 
 		            Toast.makeText(context, value, Toast.LENGTH_SHORT).show();
 		            Fragment2.setCurrentParty(value);
+		            Fragment3.setCurrentPromises(value, null);
 		      }
 		   });
 		lv.setAdapter(adapter);
-		
 		
 		Button b1 = (Button) rootView.findViewById(R.id.buttonReload);
 		b1.setOnClickListener(myhandler1);
@@ -72,8 +72,6 @@ public class Fragment1 extends Fragment {
 	    	lv.setAdapter(adapter);
 	    }
 	 };
-	 
-
 	
 	public ArrayAdapter<String> loadData(){
 		MyDBHandler dbHandler = new MyDBHandler(context, null, null, 1);

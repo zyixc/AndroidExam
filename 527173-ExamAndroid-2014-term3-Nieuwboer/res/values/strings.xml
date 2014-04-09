@@ -18,6 +18,7 @@
     <string name="button_reload">Reload</string>
     <string name="contextdiscriptionimage"></string>
     <string name="button_save">Save</string>
+    <string name="buttonAdd">Add</string>
     
 
 </resources>
