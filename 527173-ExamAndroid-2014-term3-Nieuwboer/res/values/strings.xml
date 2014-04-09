@@ -2,9 +2,9 @@
 <resources>
 
     <string name="app_name">Template</string>
-    <string name="title_Fragment1">Section 1</string>
-    <string name="title_Fragment2">Section 2</string>
-    <string name="title_Fragment3">Section 3</string>
+    <string name="title_Fragment1">Parties</string>
+    <string name="title_Fragment2">Details</string>
+    <string name="title_Fragment3">Promises</string>
     <string name="action_settings">Settings</string>
     <string name="action_info">LicenseInfo</string>
     <string name="action_resetDb">resetDb</string>
@@ -17,6 +17,7 @@
     <string name="delete_text">DEL</string>
     <string name="button_reload">Reload</string>
     <string name="contextdiscriptionimage"></string>
+    <string name="button_save">Save</string>
     
 
 </resources>

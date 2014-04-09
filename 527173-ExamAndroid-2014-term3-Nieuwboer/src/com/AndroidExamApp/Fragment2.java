@@ -1,21 +1,20 @@
 package com.AndroidExamApp;
 
-import java.util.ArrayList;
-
 import android.app.Fragment;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
+import android.widget.AdapterView.OnItemClickListener;
 
 import com.AndroidExamApp.data.MyDBHandler;
 import com.AndroidExamApp.data.Party;
@@ -27,14 +26,16 @@ public class Fragment2 extends Fragment {
 	/**
 	 * Returns a new instance of this fragment for the given section number.
 	 */
-	TextView plusSign;
-	TextView equalsSign;
-	TextView minusSign;
-	EditText editName;
-	EditText editPartyDescription;
-	ListView listView;
+	static TextView plusSign;
+	static TextView equalsSign;
+	static TextView minusSign;
+	static EditText editName;
+	static EditText editPartyDescription;
+	static ListView listView;
+	static Party currentparty;
+	Button buttonSave;
 	
-	Context context;
+	static Context context;
 	
 	public static Fragment2 newInstance() {
 		Fragment2 fragment = new Fragment2();				
@@ -54,16 +55,50 @@ public class Fragment2 extends Fragment {
 		editName = (EditText) rootView.findViewById(R.id.editName);
 		editPartyDescription = (EditText) rootView.findViewById(R.id.editPartyDescription);
 		listView = (ListView) rootView.findViewById(R.id.listView2);
-	
+		buttonSave = (Button) rootView.findViewById(R.id.button2Save);
+		
+		plusSign.setText("+0");
+		equalsSign.setText("=0");
+		minusSign.setText("-0");
+		
+		buttonSave.setOnClickListener(new OnClickListener(){
+			@Override
+			public void onClick(View v) {
+				currentparty.set_name(editName.getText().toString());
+				currentparty.set_description(editPartyDescription.getText().toString());
+				
+				MyDBHandler db = new MyDBHandler(context, null, null, 1);
+				db.alterParty(currentparty);			
+			}
+		});
+		
+		listView.setOnItemClickListener(new OnItemClickListener()
+		   {
+		      @Override
+		      public void onItemClick(AdapterView<?> adapter, View v, int position,
+		            long arg3) 
+		      {
+		            String value = (String)adapter.getItemAtPosition(position); 
+		            Toast.makeText(context, value, Toast.LENGTH_SHORT).show();
+		            Fragment3.setCurrentParty(currentparty.get_name());
+		      }
+		});
+		
 		return rootView;
 	}	
 		
-	public void setCurrentParty(String partyname){
+	public static void setCurrentParty(String partyname){
 		MyDBHandler db = new MyDBHandler(context, null, null, 1);
-		Party currentparty = db.findParty(partyname);
-        editName.setText(currentparty.get_name());
+		currentparty = db.findParty(partyname);
+        
+		plusSign.setText("+"+Integer.toString(currentparty.get_plus_sign()));
+		equalsSign.setText("="+Integer.toString(currentparty.get_equals_sign()));
+		minusSign.setText("-"+Integer.toString(currentparty.get_minus_sign()));
+
+		editName.setText(currentparty.get_name());
         editPartyDescription.setText(currentparty.get_description());
-        String[] values = (String[]) currentparty.get_promises().keySet().toArray();
+        String[] values = new String[currentparty.get_promises().keySet().size()];
+        values = currentparty.get_promises().keySet().toArray(values);
 		ArrayAdapter<String> adapter_temp = new ArrayAdapter<String>(context,R.layout.fragment2_row, R.id.labelfragment2, values);
 		listView.setAdapter(adapter_temp);
 	}

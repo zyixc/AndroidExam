@@ -16,34 +16,43 @@
             android:layout_height="wrap_content"
             android:layout_margin="20dp" >
 
-            <ImageView
-                android:id="@+id/imageView1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:contentDescription="@string/contextdiscriptionimage"
-                android:src="@drawable/politiek" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1" >
 
-            <TextView
-                android:id="@+id/textViewPlus"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:textAppearance="?android:attr/textAppearanceLarge" />
+                <ImageView
+                    android:id="@+id/imageView1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:contentDescription="@string/contextdiscriptionimage"
+                    android:src="@drawable/politiek" />
 
-            <TextView
-                android:id="@+id/textViewEquals"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:textAppearance="?android:attr/textAppearanceLarge" />
+                <TextView
+                    android:id="@+id/textViewPlus3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="#00FF00" />
 
-            <TextView
-                android:id="@+id/textViewMinus"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:textAppearance="?android:attr/textAppearanceLarge" />
+                <TextView
+                    android:id="@+id/textViewEquals3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textAppearance="?android:attr/textAppearanceLarge" />
+
+                <TextView
+                    android:id="@+id/textViewMinus3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="#FF0000" />
+
+            </LinearLayout>
 
         </TableRow>
          <TableRow
@@ -56,6 +65,7 @@
                  android:id="@+id/editPromise"
                  android:layout_width="wrap_content"
                  android:layout_height="wrap_content"
+                 android:layout_weight="1"
                  android:ems="10"
                  android:inputType="text" >
 
@@ -77,6 +87,12 @@
                  android:inputType="textMultiLine"
                  android:maxLines="3"
                  android:minLines="3" />
+
+             <Button
+                 android:id="@+id/button3Save"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:text="@string/button_save" />
 
         </TableRow>
     </TableLayout>

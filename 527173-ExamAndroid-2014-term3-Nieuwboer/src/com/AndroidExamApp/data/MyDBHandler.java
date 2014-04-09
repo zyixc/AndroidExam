@@ -72,6 +72,31 @@ public class MyDBHandler extends SQLiteOpenHelper {
 		db.execSQL("delete from "+ TABLE_PARTY_PROMISES);
 	}
 	
+	public void alterParty(Party party){
+		SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv1 = new ContentValues();
+        cv1.put(COLUMN_NAME, party.get_name());
+        cv1.put(COLUMN_DESCRIPTION, party.get_description());
+        cv1.put(COLUMN_FILENAME, party.get_filename());
+        cv1.put(COLUMN_PLUS, party.get_plus_sign());
+        cv1.put(COLUMN_EQUALS, party.get_equals_sign());
+        cv1.put(COLUMN_MINUS, party.get_minus_sign());
+        db.update(TABLE_PARTY, cv1,COLUMN_ID + " LIKE " + Integer.toString(party.get_id()),null);
+        
+        db.execSQL("DELETE FROM "+TABLE_PARTY_PROMISES+" WHERE "+ COLUMN_ID2 + " LIKE "+ Integer.toString(party.get_id()));
+        ContentValues cv2 = new ContentValues();
+        Iterator<String> iterator = party.get_promises().keySet().iterator();
+        while(iterator.hasNext()) {
+        	String key=(String)iterator.next();
+            String value=(String)party.get_promises().get(key);
+            cv2.put(COLUMN_ID2_FOREIGN, party.get_id());
+            cv2.put(COLUMN_HASHMAP1, key);
+            cv2.put(COLUMN_HASHMAP2, value);
+        	db.insert(TABLE_PARTY_PROMISES, null, cv2);
+        }
+        
+	}
+	
 	public void addParty(Party party) {
         ContentValues values = new ContentValues();
         values.put(COLUMN_NAME, party.get_name());
@@ -85,7 +110,7 @@ public class MyDBHandler extends SQLiteOpenHelper {
         String query = "Select " + COLUMN_ID + " FROM " + TABLE_PARTY + " WHERE " + COLUMN_NAME + " =  \"" + party.get_name() + "\"";
         Cursor cursor = db.rawQuery(query,null);
         cursor.moveToFirst();
-        Iterator iterator = party.get_promises().keySet().iterator();
+        Iterator<String> iterator = party.get_promises().keySet().iterator();
         while(iterator.hasNext()) {
         	String key=(String)iterator.next();
             String value=(String)party.get_promises().get(key);
@@ -106,12 +131,13 @@ public class MyDBHandler extends SQLiteOpenHelper {
 		
 		if (cursor.moveToFirst()) {
 			cursor.moveToFirst();
+			party.set_id(Integer.parseInt(cursor.getString(0)));
 			party.set_name(cursor.getString(1));
 			party.set_description(cursor.getString(2));
 			party.set_filename(cursor.getString(3));
-//			party.set_plus_sign(Integer.parseInt((cursor.getString(4))));
-//			party.set_equals_sign(Integer.parseInt(cursor.getString(5)));
-//			party.set_minus_sign(Integer.parseInt(cursor.getString(6)));
+			party.set_plus_sign(cursor.getInt(4));
+			party.set_equals_sign(cursor.getInt(5));
+			party.set_minus_sign(cursor.getInt(6));
 			String query2 = "Select * FROM " + TABLE_PARTY_PROMISES + " WHERE " + COLUMN_ID2_FOREIGN + " =  \"" + cursor.getString(0) + "\"";
 			Cursor cursor2 = db.rawQuery(query2, null);
 			cursor2.moveToFirst();

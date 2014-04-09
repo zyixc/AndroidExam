@@ -73,6 +73,9 @@ public class MainActivity extends Activity implements ActionBar.TabListener {
 					.setText(mSectionsPagerAdapter.getPageTitle(i))
 					.setTabListener(this));
 		}
+		
+		MyDBHandler dbHandler = new MyDBHandler(this, null, null, 1);
+		dbHandler.addParty(new Party());
 	}
 
 	@Override
