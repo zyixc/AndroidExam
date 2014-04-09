@@ -5,6 +5,8 @@ import java.util.HashMap;
 import android.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
+import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +19,7 @@ import com.AndroidExamApp.data.MyDBHandler;
 import com.AndroidExamApp.data.Party;
 
 public class Fragment3 extends Fragment {
+	ViewPager mViewPager;
 	static Context context;
 	static TextView plusSign;
 	static TextView equalsSign;
@@ -28,6 +31,7 @@ public class Fragment3 extends Fragment {
 	static Button button3Add;
 	static EditText editPromise;
 	static EditText editPromiseDescription;
+	static TextView partyNameText;
 	static Party currentparty;
 	
 	public static Fragment3 newInstance() {
@@ -41,6 +45,8 @@ public class Fragment3 extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View rootView = inflater.inflate(R.layout.fragment3, container,	false);
+		mViewPager = (ViewPager) container.findViewById(R.id.pager);
+		
 		context = this.getActivity().getApplicationContext();
 		plusSign = (TextView) rootView.findViewById(R.id.textViewPlus3);
 		equalsSign = (TextView) rootView.findViewById(R.id.textViewEquals3);
@@ -52,11 +58,13 @@ public class Fragment3 extends Fragment {
 		buttonEquals = (Button) rootView.findViewById(R.id.buttonEquals);
 		button3Save = (Button) rootView.findViewById(R.id.button3Save);
 		button3Add = (Button) rootView.findViewById(R.id.button3Add);
+		partyNameText = (TextView) rootView.findViewById(R.id.textView3);
 		
 		plusSign.setText("+0");
 		equalsSign.setText("=0");
 		minusSign.setText("-0");
 		
+		partyNameText.setText("none selected");
 		editPromise.setText("none selected");
 		editPromiseDescription.setText("none selected");
 		editPromise.setEnabled(false);
@@ -74,8 +82,11 @@ public class Fragment3 extends Fragment {
 				temphashmap.put(editPromise.getText().toString(), editPromiseDescription.getText().toString());
 				currentparty.set_promises(temphashmap);
 				
+				Log.i("data: ", editPromise.getText().toString());
+				
 				MyDBHandler db = new MyDBHandler(context, null, null, 1);
-				db.alterParty(currentparty);			
+				db.alterParty(currentparty);
+				mViewPager.setCurrentItem(1);
 			}
 		});
 		
@@ -129,28 +140,24 @@ public class Fragment3 extends Fragment {
 		equalsSign.setText("="+Integer.toString(currentparty.get_equals_sign()));
 		minusSign.setText("-"+Integer.toString(currentparty.get_minus_sign()));
 		
-		if(recievedValue==null){
-			editPromise.setText("none selected");
-			editPromiseDescription.setText("none selected");
-			editPromise.setEnabled(false);
-			editPromiseDescription.setEnabled(false);
-			buttonPlus.setEnabled(false);
-			buttonMinus.setEnabled(false);
-			buttonEquals.setEnabled(false);
-			button3Save.setEnabled(false);
-			button3Add.setEnabled(false);
+		if(recievedValue.equals("2")){
+			partyNameText.setText(currentparty.get_name());
+			editPromise.setText("");
+			editPromiseDescription.setText("");
 		}else{
 			String value = currentparty.get_promises().get(recievedValue);
+			partyNameText.setText(currentparty.get_name());
 			editPromise.setText(recievedValue);
 			editPromiseDescription.setText(value);
-			editPromise.setEnabled(true);
-			editPromiseDescription.setEnabled(true);
-			buttonPlus.setEnabled(true);
-			buttonMinus.setEnabled(true);
-			buttonEquals.setEnabled(true);
-			button3Save.setEnabled(true);
-			button3Add.setEnabled(true);
 		}
+		editPromise.setEnabled(true);
+		editPromiseDescription.setEnabled(true);
+		buttonPlus.setEnabled(true);
+		buttonMinus.setEnabled(true);
+		buttonEquals.setEnabled(true);
+		button3Save.setEnabled(false);
+		button3Add.setEnabled(true);
 		
+		db.close();
 	}
 }

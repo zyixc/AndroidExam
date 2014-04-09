@@ -4,9 +4,11 @@ import java.util.ArrayList;
 
 import com.AndroidExamApp.data.MyDBHandler;
 import com.AndroidExamApp.data.Party;
+
 import android.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
+import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,6 +29,8 @@ public class Fragment1 extends Fragment {
 	Context context;
 	ArrayAdapter<String> adapter;
 	ListView lv;
+	ViewPager mViewPager;
+	
 	
 	public static Fragment1 newInstance() {
 		Fragment1 fragment = new Fragment1();
@@ -41,7 +45,7 @@ public class Fragment1 extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View rootView = inflater.inflate(R.layout.fragment1, container,	false);
 		context = this.getActivity().getApplicationContext();
-		
+		mViewPager = (ViewPager) container.findViewById(R.id.pager);
 		
 		adapter = loadData();
 		lv = (ListView) rootView.findViewById(R.id.listView1);
@@ -54,7 +58,7 @@ public class Fragment1 extends Fragment {
 		            String value = (String)adapter.getItemAtPosition(position); 
 		            Toast.makeText(context, value, Toast.LENGTH_SHORT).show();
 		            Fragment2.setCurrentParty(value);
-		            Fragment3.setCurrentPromises(value, null);
+		            mViewPager.setCurrentItem(1);
 		      }
 		   });
 		lv.setAdapter(adapter);
@@ -85,7 +89,6 @@ public class Fragment1 extends Fragment {
 		String[] values = listvalues.toArray(new String[listvalues.size()]);
 		ArrayAdapter<String> adapter_temp = new ArrayAdapter<String>(context,R.layout.fragment1_row, R.id.labelfragment1, values);
 		dbHandler.close();
-		
 		return adapter_temp;
 	}
 }

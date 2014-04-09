@@ -70,6 +70,7 @@ public class MyDBHandler extends SQLiteOpenHelper {
 		SQLiteDatabase db = this.getWritableDatabase();
 		db.execSQL("delete from "+ TABLE_PARTY);
 		db.execSQL("delete from "+ TABLE_PARTY_PROMISES);
+		db.close();
 	}
 	
 	public void alterParty(Party party){
@@ -94,7 +95,7 @@ public class MyDBHandler extends SQLiteOpenHelper {
             cv2.put(COLUMN_HASHMAP2, value);
         	db.insert(TABLE_PARTY_PROMISES, null, cv2);
         }
-        
+        db.close();
 	}
 	
 	public void addParty(Party party) {
@@ -186,7 +187,7 @@ public class MyDBHandler extends SQLiteOpenHelper {
 			Party party = findParty(cursor.getString(1));			
 			result.add(party);
 		}
-		
+		db.close();
 		return result;
 	}
 } 

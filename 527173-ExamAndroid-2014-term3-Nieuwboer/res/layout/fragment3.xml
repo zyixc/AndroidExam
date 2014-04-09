@@ -22,12 +22,19 @@
                 android:layout_weight="1" >
 
                 <ImageView
-                    android:id="@+id/imageView1"
+                    android:id="@+id/imageView3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:contentDescription="@string/contextdiscriptionimage"
                     android:src="@drawable/politiek" />
+
+                <TextView
+                    android:id="@+id/textView3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textAppearance="?android:attr/textAppearanceLarge" />
 
                 <TextView
                     android:id="@+id/textViewPlus3"
@@ -97,12 +104,14 @@
                      android:id="@+id/button3Add"
                      android:layout_width="wrap_content"
                      android:layout_height="wrap_content"
-                     android:text="@string/buttonAdd" />
+                     android:layout_gravity="right"
+                     android:text="@string/add_string" />
 
                  <Button
                      android:id="@+id/button3Save"
                      android:layout_width="wrap_content"
                      android:layout_height="wrap_content"
+                     android:layout_gravity="right"
                      android:text="@string/button_save" />
 
              </LinearLayout>

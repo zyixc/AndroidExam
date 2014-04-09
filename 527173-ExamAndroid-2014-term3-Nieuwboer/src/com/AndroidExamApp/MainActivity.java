@@ -2,6 +2,7 @@ package com.AndroidExamApp;
 
 import java.util.Locale;
 
+import com.AndroidExamApp.data.DumpRItoF;
 import com.AndroidExamApp.data.MyDBHandler;
 import com.AndroidExamApp.data.Party;
 
@@ -77,6 +78,10 @@ public class MainActivity extends Activity implements ActionBar.TabListener {
 		dbHandler.addParty(new Party());
 	}
 
+	public void testfunction(){
+		
+	}
+	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 
@@ -91,7 +96,14 @@ public class MainActivity extends Activity implements ActionBar.TabListener {
 		// automatically handle clicks on the Home/Up button, so long
 		// as you specify a parent activity in AndroidManifest.xml.
 		switch (item.getItemId()) {
-	        case R.id.action_settings: ;return true;
+			case R.id.action_addParty: 
+				mViewPager.setCurrentItem(1);
+				Fragment2.reset();
+				return true;
+			case R.id.action_settings: ;
+				Intent intent = new Intent(this, DumpRItoF.class);
+				startService(intent);				
+				return true;
 	        case R.id.action_resetDb: 
 	        	MyDBHandler db = new MyDBHandler(this, null, null, 1);
 	        	db.dropTable();
@@ -168,5 +180,4 @@ public class MainActivity extends Activity implements ActionBar.TabListener {
 			return null;
 		}
 	}
-
 }
