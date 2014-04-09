@@ -3,6 +3,7 @@ package com.AndroidExamApp;
 import java.util.Locale;
 
 import com.AndroidExamApp.data.MyDBHandler;
+import com.AndroidExamApp.data.Party;
 
 import android.app.Activity;
 import android.app.ActionBar;

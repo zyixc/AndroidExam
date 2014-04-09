@@ -16,6 +16,7 @@
     <string name="find_text">FIND</string>
     <string name="delete_text">DEL</string>
     <string name="button_reload">Reload</string>
+    <string name="contextdiscriptionimage"></string>
     
 
 </resources>
