@@ -5,7 +5,9 @@ import java.util.ArrayList;
 import com.AndroidExamApp.data.MyDBHandler;
 import com.AndroidExamApp.data.Party;
 
+import android.app.Activity;
 import android.app.Fragment;
+import android.app.FragmentManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -43,6 +45,7 @@ public class Fragment1 extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View rootView = inflater.inflate(R.layout.fragment1, container,	false);
 		context = this.getActivity().getApplicationContext();
+		this.getFragmentManager().findFragmentById(id)
 		
 		adapter = loadData();
 		lv = (ListView) rootView.findViewById(R.id.listView1);

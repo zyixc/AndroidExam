@@ -163,5 +163,4 @@ public class MyDBHandler extends SQLiteOpenHelper {
 		
 		return result;
 	}
-
 } 
