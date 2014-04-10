@@ -87,6 +87,7 @@ public class Fragment3 extends Fragment {
 				MyDBHandler db = new MyDBHandler(context, null, null, 1);
 				db.alterParty(currentparty);
 				mViewPager.setCurrentItem(1);
+				Fragment2.setCurrentParty(currentparty.get_name());
 			}
 		});
 		

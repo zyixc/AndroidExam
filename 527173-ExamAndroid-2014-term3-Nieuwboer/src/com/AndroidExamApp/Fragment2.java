@@ -80,6 +80,8 @@ public class Fragment2 extends Fragment {
 				db.addParty(tempparty);	
 				db.close();
 				Fragment3.setCurrentPromises(tempparty.get_name(),"");
+				Fragment1.loadData(); //no time to fix this kind things ..prob some working version of onfocuslistener;blal;bal
+				mViewPager.setCurrentItem(0);
 			}
 		});
 		

@@ -26,11 +26,10 @@ public class Fragment1 extends Fragment {
 	/**
 	 * Returns a new instance of this fragment for the given section number.
 	 */
-	Context context;
+	static Context context;
 	ArrayAdapter<String> adapter;
 	ListView lv;
 	ViewPager mViewPager;
-	
 	
 	public static Fragment1 newInstance() {
 		Fragment1 fragment = new Fragment1();
@@ -77,7 +76,7 @@ public class Fragment1 extends Fragment {
 	    }
 	 };
 	
-	public ArrayAdapter<String> loadData(){
+	public static ArrayAdapter<String> loadData(){
 		MyDBHandler dbHandler = new MyDBHandler(context, null, null, 1);
 		ArrayList<Party> products = dbHandler.getAll();
 		ArrayList<String> listvalues = new ArrayList<String>();
