@@ -11,6 +11,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 public class MyDBHandler extends SQLiteOpenHelper {
 
@@ -91,11 +92,13 @@ public class MyDBHandler extends SQLiteOpenHelper {
         while(iterator.hasNext()) {
         	String key=(String)iterator.next();
             String value=(String)party.get_promises().get(key);
+            Log.i("Insert", party.get_name() + " k " + key + " v " + value);
             cv2.put(COLUMN_ID2_FOREIGN, party.get_id());
             cv2.put(COLUMN_HASHMAP1, key);
             cv2.put(COLUMN_HASHMAP2, value);
         	db.insert(TABLE_PARTY_PROMISES, null, cv2);
         }
+        Log.i("Alter", party.get_name());
         db.close();
 	}
 	
@@ -107,25 +110,31 @@ public class MyDBHandler extends SQLiteOpenHelper {
         
         SQLiteDatabase db = this.getWritableDatabase();
         db.insert(TABLE_PARTY, null, values);
+
+        // Now get the ID that was given to the row
+        Cursor cursor = db.rawQuery("SELECT " + COLUMN_ID + "  FROM " + TABLE_PARTY + " WHERE " + COLUMN_NAME + " =  \"" + party.get_name() + "\"", null);
+        cursor.moveToFirst();
+        int id = Integer.parseInt(cursor.getString(0));
+        party.set_id(id);
         
         ContentValues values2 = new ContentValues();
-//        Iterator<String> iterator = party.get_promises().keySet().iterator();
-//        while(iterator.hasNext()) {
-//        	String key=(String)iterator.next();
-//            String value=(String)party.get_promises().get(key);
-//        	values2.put(COLUMN_ID2_FOREIGN, party.get_id());
-//        	values2.put(COLUMN_HASHMAP1, key);
-//        	values2.put(COLUMN_HASHMAP2, value);
-//        	db.insert(TABLE_PARTY_PROMISES, null, values2);
-//		}
-        for (Map.Entry<String, String> entry : party.get_promises().entrySet()) {
-        	String key = entry.getKey();
-        	String value = entry.getValue();
+        Iterator<String> iterator = party.get_promises().keySet().iterator();
+        while(iterator.hasNext()) {
+        	String key=(String)iterator.next();
+            String value=(String)party.get_promises().get(key);
         	values2.put(COLUMN_ID2_FOREIGN, party.get_id());
         	values2.put(COLUMN_HASHMAP1, key);
         	values2.put(COLUMN_HASHMAP2, value);
         	db.insert(TABLE_PARTY_PROMISES, null, values2);
-        }
+		}
+//        for (Map.Entry<String, String> entry : party.get_promises().entrySet()) {
+//        	String key = entry.getKey();
+//        	String value = entry.getValue();
+//        	values2.put(COLUMN_ID2_FOREIGN, party.get_id());
+//        	values2.put(COLUMN_HASHMAP1, key);
+//        	values2.put(COLUMN_HASHMAP2, value);
+//        	db.insert(TABLE_PARTY_PROMISES, null, values2);
+//        }
         db.close();
 	}
 	
@@ -136,7 +145,6 @@ public class MyDBHandler extends SQLiteOpenHelper {
 		Party party = new Party();
 		
 		if (cursor.moveToFirst()) {
-			cursor.moveToFirst();
 			party.set_id(Integer.parseInt(cursor.getString(0)));
 			party.set_name(cursor.getString(1));
 			party.set_description(cursor.getString(2));

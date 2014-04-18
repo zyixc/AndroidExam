@@ -1,13 +1,17 @@
 package com.AndroidExamApp.data;
 
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.Map;
+import java.util.Random;
 
 public class Party {
+	private static Random random = new Random();
 	private int _id;
 	private String _name;
 	private String _description;
 	private String _filename;
-	private HashMap<String,String> _promises = new HashMap<String,String>();
+	private Map<String,String> _promises = Collections.synchronizedMap(new HashMap<String,String>());
 	private int _plus_sign = 0;
 	private int _equals_sign = 0;
 	private int _minus_sign = 0;
@@ -27,7 +31,7 @@ public class Party {
 	}
 	
 	public Party(){
-		this._name = "Default";
+		this._name = Integer.toString(random.nextInt(100000));
 		this._description = "Default";
 		this._filename = "politiek.png";
 		_promises.put("Default", "Default");
@@ -65,11 +69,11 @@ public class Party {
 		this._filename = _filename;
 	}
 
-	public HashMap<String, String> get_promises() {
+	public Map<String, String> get_promises() {
 		return _promises;
 	}
 
-	public void set_promises(HashMap<String, String> _promises) {
+	public void set_promises(Map<String, String> _promises) {
 		this._promises = _promises;
 	}
 

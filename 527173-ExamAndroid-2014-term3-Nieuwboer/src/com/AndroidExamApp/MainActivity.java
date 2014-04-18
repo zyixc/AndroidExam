@@ -76,6 +76,7 @@ public class MainActivity extends Activity implements ActionBar.TabListener {
 		
 		MyDBHandler dbHandler = new MyDBHandler(this, null, null, 1);
 		dbHandler.addParty(new Party());
+		dbHandler.close();
 	}
 
 	public void testfunction(){

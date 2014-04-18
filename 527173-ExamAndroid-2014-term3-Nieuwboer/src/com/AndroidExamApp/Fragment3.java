@@ -1,6 +1,6 @@
 package com.AndroidExamApp;
 
-import java.util.HashMap;
+import java.util.Map;
 
 import android.app.Fragment;
 import android.content.Context;
@@ -9,8 +9,8 @@ import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -78,7 +78,7 @@ public class Fragment3 extends Fragment {
 		button3Add.setOnClickListener(new OnClickListener(){
 			@Override
 			public void onClick(View v) {
-				HashMap<String,String> temphashmap = currentparty.get_promises();				
+				Map<String,String> temphashmap = currentparty.get_promises();				
 				temphashmap.put(editPromise.getText().toString(), editPromiseDescription.getText().toString());
 				currentparty.set_promises(temphashmap);
 				
