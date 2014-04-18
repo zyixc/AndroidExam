@@ -51,9 +51,7 @@ public class Fragment1 extends Fragment {
 		lv.setOnItemClickListener(new OnItemClickListener()
 		   {
 		      @Override
-		      public void onItemClick(AdapterView<?> adapter, View v, int position,
-		            long arg3) 
-		      {
+		      public void onItemClick(AdapterView<?> adapter, View v, int position,long arg3) {
 		            String value = (String)adapter.getItemAtPosition(position); 
 		            Toast.makeText(context, value, Toast.LENGTH_SHORT).show();
 		            Fragment2.setCurrentParty(value);

@@ -3,6 +3,7 @@ package com.AndroidExamApp.data;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -18,18 +19,18 @@ public class MyDBHandler extends SQLiteOpenHelper {
 	private static final String TABLE_PARTY = "parties";
 	private static final String TABLE_PARTY_PROMISES = "promises";
 	
-	public static final String COLUMN_ID = "_id";
-	public static final String COLUMN_NAME = "name";
-	public static final String COLUMN_DESCRIPTION = "description";
-	public static final String COLUMN_FILENAME = "filename";
-	public static final String COLUMN_PLUS = "plus";
-	public static final String COLUMN_EQUALS = "equals";
-	public static final String COLUMN_MINUS = "minus";
+	private static final String COLUMN_ID = "_id";
+	private static final String COLUMN_NAME = "name";
+	private static final String COLUMN_DESCRIPTION = "description";
+	private static final String COLUMN_FILENAME = "filename";
+	private static final String COLUMN_PLUS = "plus";
+	private static final String COLUMN_EQUALS = "equals";
+	private static final String COLUMN_MINUS = "minus";
 	
-	public static final String COLUMN_ID2 = "_id";
-	public static final String COLUMN_ID2_FOREIGN = "_id_foreign";
-	public static final String COLUMN_HASHMAP1 = "promise";
-	public static final String COLUMN_HASHMAP2 = "promise_description";
+	private static final String COLUMN_ID2 = "_id";
+	private static final String COLUMN_ID2_FOREIGN = "_id_foreign";
+	private static final String COLUMN_HASHMAP1 = "promise";
+	private static final String COLUMN_HASHMAP2 = "promise_description";
 	
 	public MyDBHandler(Context context, String name, CursorFactory factory, int version) {
 		super(context, DATABASE_NAME, factory, DATABASE_VERSION);
@@ -108,19 +109,23 @@ public class MyDBHandler extends SQLiteOpenHelper {
         db.insert(TABLE_PARTY, null, values);
         
         ContentValues values2 = new ContentValues();
-        String query = "Select " + COLUMN_ID + " FROM " + TABLE_PARTY + " WHERE " + COLUMN_NAME + " =  \"" + party.get_name() + "\"";
-        Cursor cursor = db.rawQuery(query,null);
-        cursor.moveToFirst();
-        Iterator<String> iterator = party.get_promises().keySet().iterator();
-        while(iterator.hasNext()) {
-        	String key=(String)iterator.next();
-            String value=(String)party.get_promises().get(key);
-        	values2.put(COLUMN_ID2_FOREIGN, cursor.getString(0));
+//        Iterator<String> iterator = party.get_promises().keySet().iterator();
+//        while(iterator.hasNext()) {
+//        	String key=(String)iterator.next();
+//            String value=(String)party.get_promises().get(key);
+//        	values2.put(COLUMN_ID2_FOREIGN, party.get_id());
+//        	values2.put(COLUMN_HASHMAP1, key);
+//        	values2.put(COLUMN_HASHMAP2, value);
+//        	db.insert(TABLE_PARTY_PROMISES, null, values2);
+//		}
+        for (Map.Entry<String, String> entry : party.get_promises().entrySet()) {
+        	String key = entry.getKey();
+        	String value = entry.getValue();
+        	values2.put(COLUMN_ID2_FOREIGN, party.get_id());
         	values2.put(COLUMN_HASHMAP1, key);
         	values2.put(COLUMN_HASHMAP2, value);
         	db.insert(TABLE_PARTY_PROMISES, null, values2);
         }
-        cursor.close();
         db.close();
 	}
 	
