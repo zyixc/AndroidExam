@@ -26,7 +26,7 @@ public class Fragment1 extends Fragment {
 	/**
 	 * Returns a new instance of this fragment for the given section number.
 	 */
-	static Context context;
+	static Context mycontext;
 	ArrayAdapter<String> adapter;
 	ListView lv;
 	ViewPager mViewPager;
@@ -43,7 +43,7 @@ public class Fragment1 extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View rootView = inflater.inflate(R.layout.fragment1, container,	false);
-		context = this.getActivity().getApplicationContext();
+		mycontext = this.getActivity().getApplicationContext();
 		mViewPager = (ViewPager) container.findViewById(R.id.pager);
 		
 		adapter = loadData();
@@ -53,7 +53,7 @@ public class Fragment1 extends Fragment {
 		      @Override
 		      public void onItemClick(AdapterView<?> adapter, View v, int position,long arg3) {
 		            String value = (String)adapter.getItemAtPosition(position); 
-		            Toast.makeText(context, value, Toast.LENGTH_SHORT).show();
+		            Toast.makeText(mycontext, value, Toast.LENGTH_SHORT).show();
 		            Fragment2.setCurrentParty(value);
 		            mViewPager.setCurrentItem(1);
 		      }
@@ -75,17 +75,19 @@ public class Fragment1 extends Fragment {
 	 };
 	
 	public static ArrayAdapter<String> loadData(){
-		MyDBHandler dbHandler = new MyDBHandler(context, null, null, 1);
-		ArrayList<Party> products = dbHandler.getAll();
+		MyDBHandler dbHandler = new MyDBHandler(mycontext, null, null, 1);
+		ArrayList<Party> parties = dbHandler.getAll();
 		ArrayList<String> listvalues = new ArrayList<String>();
 		
-		for(int i = 0; i<products.size(); i++){
-			listvalues.add(products.get(i).get_name());
+		for(int i = 0; i<parties.size(); i++){
+			listvalues.add(parties.get(i).get_name());
 		}
 		
 		String[] values = listvalues.toArray(new String[listvalues.size()]);
-		ArrayAdapter<String> adapter_temp = new ArrayAdapter<String>(context,R.layout.fragment1_row, R.id.labelfragment1, values);
+//		ArrayAdapter<String> adapter_temp = new ArrayAdapter<String>(context,R.layout.fragment1_row, R.id.labelfragment1, values);
 		dbHandler.close();
+		LoadDataArrayAdapter adapter_temp = new LoadDataArrayAdapter(mycontext,parties,values);
 		return adapter_temp;
-	}
+	} 
+	
 }

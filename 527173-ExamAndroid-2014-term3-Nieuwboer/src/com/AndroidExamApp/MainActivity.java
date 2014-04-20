@@ -4,11 +4,9 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.nio.channels.FileChannel;
-import java.util.Locale;
 
 import com.AndroidExamApp.data.DumpRItoF;
 import com.AndroidExamApp.data.MyDBHandler;
-import com.AndroidExamApp.data.Party;
 
 import android.app.Activity;
 import android.app.ActionBar;
@@ -78,10 +76,6 @@ public class MainActivity extends Activity implements ActionBar.TabListener {
 					.setText(mSectionsPagerAdapter.getPageTitle(i))
 					.setTabListener(this));
 		}
-		
-		MyDBHandler dbHandler = new MyDBHandler(this, null, null, 1);
-		dbHandler.addParty(new Party());
-		dbHandler.close();
 	}
 
 	public void testfunction(){
@@ -175,14 +169,13 @@ public class MainActivity extends Activity implements ActionBar.TabListener {
 
 		@Override
 		public CharSequence getPageTitle(int position) {
-			Locale l = Locale.getDefault();
 			switch (position) {
 			case 0:
-				return getString(R.string.title_Fragment1).toUpperCase(l);
+				return getString(R.string.title_Fragment1);
 			case 1:
-				return getString(R.string.title_Fragment2).toUpperCase(l);
+				return getString(R.string.title_Fragment2);
 			case 2:
-				return getString(R.string.title_Fragment3).toUpperCase(l);
+				return getString(R.string.title_Fragment3);
 			}
 			return null;
 		}
@@ -200,11 +193,15 @@ public class MainActivity extends Activity implements ActionBar.TabListener {
             File backupDB = new File(sd, backupDBPath);
             try{
             if (currentDB.exists()) {
-                FileChannel src = new FileInputStream(currentDB).getChannel();
-                FileChannel dst = new FileOutputStream(backupDB).getChannel();
+                FileInputStream srcInput = new FileInputStream(currentDB);
+            	FileOutputStream srcOutput = new FileOutputStream(backupDB);
+            	FileChannel src = srcInput.getChannel();
+                FileChannel dst = srcOutput.getChannel();
                 dst.transferFrom(src, 0, src.size());
                 src.close();
                 dst.close();
+                srcInput.close();
+                srcOutput.close();
             }}catch (Exception e){
           	  e.printStackTrace();
             }

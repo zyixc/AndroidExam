@@ -33,8 +33,7 @@ public class Party {
 	public Party(){
 		this._name = Integer.toString(random.nextInt(100000));
 		this._description = "Default";
-		this._filename = "politiek.this";
-		_promises.put("Default", "Default");
+		this._filename = "politiek.png";
 	}
 
 	public int get_id() {

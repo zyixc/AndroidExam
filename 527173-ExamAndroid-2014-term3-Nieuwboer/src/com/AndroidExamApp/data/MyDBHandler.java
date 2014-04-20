@@ -152,16 +152,16 @@ public class MyDBHandler extends SQLiteOpenHelper {
 			party.set_minus_sign(cursor.getInt(6));
 			String query2 = "Select * FROM " + TABLE_PARTY_PROMISES + " WHERE " + COLUMN_ID2_FOREIGN + " =  \"" + cursor.getString(0) + "\"";
 			Cursor cursor2 = db.rawQuery(query2, null);
-			cursor2.moveToFirst();
-			HashMap<String,String> temp = new HashMap<String,String>();
-	        Log.i("mark","this is reached");
-			do{
-				Log.i("mark2","this is reached2");
-				temp.put(cursor2.getString(2), cursor.getString(3));
-	        	Log.i("promises",cursor2.getString(2) + cursor.getString(3));
-	        }while(cursor2.moveToNext());
-	        party.set_promises(temp);
+			if(cursor2.moveToFirst()){
+				HashMap<String,String> temp = new HashMap<String,String>();
+				do{
+					temp.put(cursor2.getString(2), cursor2.getString(3));
+					Log.i("promises",cursor2.getString(2) + cursor2.getString(3));
+				}while(cursor2.moveToNext());
+				party.set_promises(temp);
+			}
 			cursor.close();
+			cursor2.close();
 		} else {
 			party = null;
 		}
