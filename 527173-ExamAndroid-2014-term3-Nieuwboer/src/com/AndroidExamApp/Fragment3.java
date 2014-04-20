@@ -12,6 +12,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.AndroidExamApp.data.MyDBHandler;
@@ -31,6 +32,7 @@ public class Fragment3 extends Fragment {
 	static EditText editPromise;
 	static EditText editPromiseDescription;
 	static TextView partyNameText;
+	static ImageView imageView;
 	static Party currentparty;
 	
 	public static Fragment3 newInstance() {
@@ -58,6 +60,7 @@ public class Fragment3 extends Fragment {
 		button3Save = (Button) rootView.findViewById(R.id.button3Save);
 		button3Add = (Button) rootView.findViewById(R.id.button3Add);
 		partyNameText = (TextView) rootView.findViewById(R.id.textView3);
+		imageView = (ImageView) rootView.findViewById(R.id.imageView3);
 		
 		plusSign.setText("+0");
 		equalsSign.setText("=0");
@@ -140,11 +143,21 @@ public class Fragment3 extends Fragment {
 		
 		if(recievedValue.equals("2")){
 			partyNameText.setText(currentparty.get_name());
+			
+			String result = "@drawable/"+currentparty.get_filename();
+			int imageResource = context.getResources().getIdentifier(result, null, context.getPackageName());
+		    imageView.setImageResource(imageResource);
+			
 			editPromise.setText("");
 			editPromiseDescription.setText("");
 		}else{
 			String value = currentparty.get_promises().get(recievedValue);
 			partyNameText.setText(currentparty.get_name());
+			
+			String result = "@drawable/"+currentparty.get_filename();
+			int imageResource = context.getResources().getIdentifier(result, null, context.getPackageName());
+		    imageView.setImageResource(imageResource);
+			
 			editPromise.setText(recievedValue);
 			editPromiseDescription.setText(value);
 		}

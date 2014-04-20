@@ -90,4 +90,6 @@ public class Fragment1 extends Fragment {
 		return adapter_temp;
 	} 
 	
+	
+	
 }

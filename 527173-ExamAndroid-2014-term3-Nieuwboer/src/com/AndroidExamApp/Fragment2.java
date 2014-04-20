@@ -58,7 +58,7 @@ public class Fragment2 extends Fragment {
 		View rootView = inflater.inflate(R.layout.fragment2, container,	false);
 		mViewPager = (ViewPager) container.findViewById(R.id.pager);
 		
-		final String[] listitems={"cda", "cu", "pvv","pvdc","Default"};
+		final String[] listitems={"cda", "cu", "d66","gl","pvda","pvdd","pvv","sgp","sp","vijftigplus","vvd"};
 		
 		context = this.getActivity().getApplicationContext();
 		plusSign = (TextView) rootView.findViewById(R.id.textViewPlus);
@@ -73,11 +73,12 @@ public class Fragment2 extends Fragment {
 		imageView = (ImageView) rootView.findViewById(R.id.imageView2);
 		
 		listPopupWindow = new ListPopupWindow(context);
-		ArrayAdapter<String> testadapter = new ArrayAdapter<String>(context, R.layout.fragment1_row, R.id.labelfragment1, listitems);
+		//ArrayAdapter<String> testadapter = new ArrayAdapter<String>(context, R.layout.fragment1_row, R.id.labelfragment1, listitems);
+		LoadImageArrayAdapter testadapter = new LoadImageArrayAdapter(context,listitems);
 		listPopupWindow.setAdapter(testadapter);
 		listPopupWindow.setAnchorView(imageView);
-        listPopupWindow.setWidth(300);
-        listPopupWindow.setHeight(400);
+        listPopupWindow.setWidth(400);
+        listPopupWindow.setHeight(600);
         listPopupWindow.setModal(true);
         imageView.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
@@ -92,6 +93,10 @@ public class Fragment2 extends Fragment {
 				if(imageResource!=0){
 					imageView.setImageResource(imageResource);
 					currentparty.set_filename(listitems[arg2]);
+					
+					MyDBHandler db = new MyDBHandler(context, null, null, 1);
+					db.alterParty(currentparty);
+					db.close();
 				}
 				listPopupWindow.dismiss();
 			}
@@ -121,6 +126,7 @@ public class Fragment2 extends Fragment {
 			public void onClick(View v) {
 				currentparty.set_name(editName.getText().toString());
 				currentparty.set_description(editPartyDescription.getText().toString());
+				currentparty.set_filename(context.getResources().getResourceEntryName(imageView.getId()));
 				
 				MyDBHandler db = new MyDBHandler(context, null, null, 1);
 				db.alterParty(currentparty);
@@ -177,6 +183,11 @@ public class Fragment2 extends Fragment {
 
 		editName.setText(currentparty.get_name());
         editPartyDescription.setText(currentparty.get_description());
+        
+        String result = "@drawable/"+currentparty.get_filename();
+	    int imageResource = context.getResources().getIdentifier(result, null, context.getPackageName());
+        imageView.setImageResource(imageResource);
+        
         String[] values = new String[currentparty.get_promises().keySet().size()];
         values = currentparty.get_promises().keySet().toArray(values);
 		ArrayAdapter<String> adapter_temp = new ArrayAdapter<String>(context,R.layout.fragment2_row, R.id.labelfragment2, values);
