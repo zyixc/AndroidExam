@@ -3,8 +3,6 @@ package com.AndroidExamApp.data;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.Map;
-
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -156,9 +154,12 @@ public class MyDBHandler extends SQLiteOpenHelper {
 			Cursor cursor2 = db.rawQuery(query2, null);
 			cursor2.moveToFirst();
 			HashMap<String,String> temp = new HashMap<String,String>();
-	        while(cursor2.moveToNext()!=false) {
-	        	temp.put(cursor2.getString(2), cursor.getString(3));
-	        }
+	        Log.i("mark","this is reached");
+			do{
+				Log.i("mark2","this is reached2");
+				temp.put(cursor2.getString(2), cursor.getString(3));
+	        	Log.i("promises",cursor2.getString(2) + cursor.getString(3));
+	        }while(cursor2.moveToNext());
 	        party.set_promises(temp);
 			cursor.close();
 		} else {

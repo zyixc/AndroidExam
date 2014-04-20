@@ -132,10 +132,10 @@ public class Fragment2 extends Fragment {
 		listView.setAdapter(null);
 	}
 	
-	public static boolean setCurrentParty(String partyname){
+	public static void setCurrentParty(String partyname){
 		MyDBHandler db = new MyDBHandler(context, null, null, 1);
 		currentparty = db.findParty(partyname);
-        
+		
 		buttonSave.setEnabled(true);
 		buttonAddPr.setEnabled(true);
 		buttonAdd.setEnabled(false);
@@ -151,6 +151,5 @@ public class Fragment2 extends Fragment {
 		ArrayAdapter<String> adapter_temp = new ArrayAdapter<String>(context,R.layout.fragment2_row, R.id.labelfragment2, values);
 		listView.setAdapter(adapter_temp);
 		db.close();
-		return true;
 	}
 }

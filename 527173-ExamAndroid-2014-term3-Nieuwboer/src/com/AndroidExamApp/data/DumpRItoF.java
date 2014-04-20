@@ -32,10 +32,11 @@ public class DumpRItoF extends Service {
 	      public void handleMessage(Message msg) {
 	    	  MyDBHandler db = new MyDBHandler(activityContext, null, null, 1);
 	    	  ArrayList<Party> result = db.getAll();
-	    	  
+	    	   
 	    	  String eol = System.getProperty("line.separator");
 	    	  BufferedWriter writer = null;
 	    	  try {
+	    		  
 	    		  writer = new BufferedWriter(new OutputStreamWriter(openFileOutput("result_DBdump.txt",Context.MODE_APPEND)));
 	    		  Calendar c = Calendar.getInstance();
 	    		  writer.write("This is DB dump ;" + c.getTime().toString()+ "; " +  eol);
