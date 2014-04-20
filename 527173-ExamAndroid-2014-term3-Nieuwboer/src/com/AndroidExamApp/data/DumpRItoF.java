@@ -1,14 +1,19 @@
 package com.AndroidExamApp.data;
 
 import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
+import java.nio.channels.FileChannel;
 import java.util.ArrayList;
 import java.util.Calendar;
 
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Environment;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.IBinder;
@@ -36,10 +41,9 @@ public class DumpRItoF extends Service {
 	    	  String eol = System.getProperty("line.separator");
 	    	  BufferedWriter writer = null;
 	    	  try {
-	    		  
-	    		  writer = new BufferedWriter(new OutputStreamWriter(openFileOutput("result_DBdump.txt",Context.MODE_APPEND)));
+	    		  writer = new BufferedWriter(new OutputStreamWriter(openFileOutput("result_RI.txt",Context.MODE_APPEND)));
 	    		  Calendar c = Calendar.getInstance();
-	    		  writer.write("This is DB dump ;" + c.getTime().toString()+ "; " +  eol);
+	    		  writer.write("This is RI information ;" + c.getTime().toString()+ "; " +  eol);
 	    		  
 	    		  for(int i = 0; i<result.size(); i++){
 	    				int ri = (result.get(i).get_plus_sign() - (result.get(i).get_equals_sign() / 10) - result.get(i).get_minus_sign());
@@ -57,7 +61,6 @@ public class DumpRItoF extends Service {
 	    			  }
 	    		  }
 	    	  }
-	          
 	          // Stop the service using the startId, so that we don't stop
 	          // the service in the middle of handling another job
 	          stopSelf(msg.arg1);

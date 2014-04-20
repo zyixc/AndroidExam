@@ -2,20 +2,24 @@ package com.AndroidExamApp;
 
 import android.app.Fragment;
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.ListPopupWindow;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.AdapterView.OnItemClickListener;
 
 import com.AndroidExamApp.data.MyDBHandler;
 import com.AndroidExamApp.data.Party;
@@ -38,6 +42,8 @@ public class Fragment2 extends Fragment {
 	static Button buttonSave;
 	static Button buttonAdd;
 	static Button buttonAddPr;
+	static ImageView imageView;
+	static ListPopupWindow listPopupWindow;
 	
 	static Context context;
 	
@@ -54,6 +60,8 @@ public class Fragment2 extends Fragment {
 		View rootView = inflater.inflate(R.layout.fragment2, container,	false);
 		mViewPager = (ViewPager) container.findViewById(R.id.pager);
 		
+		final String[] listitems={"cda", "cu", "pvv","pvdc","Default"};
+		
 		context = this.getActivity().getApplicationContext();
 		plusSign = (TextView) rootView.findViewById(R.id.textViewPlus);
 		equalsSign = (TextView) rootView.findViewById(R.id.textViewEquals);
@@ -64,6 +72,32 @@ public class Fragment2 extends Fragment {
 		buttonSave = (Button) rootView.findViewById(R.id.button2Save);
 		buttonAdd = (Button) rootView.findViewById(R.id.button2Add);
 		buttonAddPr = (Button) rootView.findViewById(R.id.button2AddPr);
+		imageView = (ImageView) rootView.findViewById(R.id.imageView2);
+		
+		listPopupWindow = new ListPopupWindow(context);
+		ArrayAdapter<String> testadapter = new ArrayAdapter<String>(context, R.layout.fragment1_row, R.id.labelfragment1, listitems);
+		listPopupWindow.setAdapter(testadapter);
+		listPopupWindow.setAnchorView(imageView);
+        listPopupWindow.setWidth(300);
+        listPopupWindow.setHeight(400);
+        listPopupWindow.setModal(true);
+        imageView.setOnClickListener(new OnClickListener() {
+            public void onClick(View v) {
+                listPopupWindow.show();
+            }
+        });  
+        listPopupWindow.setOnItemClickListener(new OnItemClickListener(){
+			@Override
+			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+				String result = "@drawable/"+listitems[arg2];
+				int imageResource = getResources().getIdentifier(result, null, context.getPackageName());
+				Log.i("image", result + " ; " +imageResource);
+				if(imageResource!=0){
+					imageView.setImageResource(imageResource);
+				}
+				listPopupWindow.dismiss();
+			}
+        });
 		
 		plusSign.setText("+0");
 		equalsSign.setText("=0");

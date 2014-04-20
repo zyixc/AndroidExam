@@ -188,7 +188,7 @@ public class MainActivity extends Activity implements ActionBar.TabListener {
 
         if (sd.canWrite()) {
             String currentDBPath = "//data//com.AndroidExamApp//databases//partyDB.db";
-            String backupDBPath = "partyDB.db";
+            String backupDBPath = "ppm//partyDB.db";
             File currentDB = new File(data, currentDBPath);
             File backupDB = new File(sd, backupDBPath);
             try{
