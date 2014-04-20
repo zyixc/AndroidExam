@@ -2,10 +2,8 @@ package com.AndroidExamApp;
 
 import android.app.Fragment;
 import android.content.Context;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -91,9 +89,9 @@ public class Fragment2 extends Fragment {
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
 				String result = "@drawable/"+listitems[arg2];
 				int imageResource = getResources().getIdentifier(result, null, context.getPackageName());
-				Log.i("image", result + " ; " +imageResource);
 				if(imageResource!=0){
 					imageView.setImageResource(imageResource);
+					currentparty.set_filename(listitems[arg2]);
 				}
 				listPopupWindow.dismiss();
 			}

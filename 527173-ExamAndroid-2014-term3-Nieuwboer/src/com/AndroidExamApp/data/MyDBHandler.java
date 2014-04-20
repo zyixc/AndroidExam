@@ -9,7 +9,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
 
 public class MyDBHandler extends SQLiteOpenHelper {
 
@@ -90,13 +89,11 @@ public class MyDBHandler extends SQLiteOpenHelper {
         while(iterator.hasNext()) {
         	String key=(String)iterator.next();
             String value=(String)party.get_promises().get(key);
-            Log.i("Insert", party.get_name() + " k " + key + " v " + value);
             cv2.put(COLUMN_ID2_FOREIGN, party.get_id());
             cv2.put(COLUMN_HASHMAP1, key);
             cv2.put(COLUMN_HASHMAP2, value);
         	db.insert(TABLE_PARTY_PROMISES, null, cv2);
         }
-        Log.i("Alter", party.get_name());
         db.close();
 	}
 	
@@ -156,7 +153,6 @@ public class MyDBHandler extends SQLiteOpenHelper {
 				HashMap<String,String> temp = new HashMap<String,String>();
 				do{
 					temp.put(cursor2.getString(2), cursor2.getString(3));
-					Log.i("promises",cursor2.getString(2) + cursor2.getString(3));
 				}while(cursor2.moveToNext());
 				party.set_promises(temp);
 			}

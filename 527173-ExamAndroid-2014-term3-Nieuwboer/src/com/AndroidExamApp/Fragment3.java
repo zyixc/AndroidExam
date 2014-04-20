@@ -6,7 +6,6 @@ import android.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -81,8 +80,6 @@ public class Fragment3 extends Fragment {
 				Map<String,String> temphashmap = currentparty.get_promises();				
 				temphashmap.put(editPromise.getText().toString(), editPromiseDescription.getText().toString());
 				currentparty.set_promises(temphashmap);
-				
-				Log.i("data: ", editPromise.getText().toString());
 				
 				MyDBHandler db = new MyDBHandler(context, null, null, 1);
 				db.alterParty(currentparty);

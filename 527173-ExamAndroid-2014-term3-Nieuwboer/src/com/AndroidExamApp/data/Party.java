@@ -27,13 +27,13 @@ public class Party {
 	public Party(String _name, String _description){
 		this._name = _name;
 		this._description = _description;
-		this._filename = "politiek.png";
+		this._filename = "politiek";
 	}
 	
 	public Party(){
 		this._name = Integer.toString(random.nextInt(100000));
 		this._description = "Default";
-		this._filename = "politiek.png";
+		this._filename = "politiek";
 	}
 
 	public int get_id() {
